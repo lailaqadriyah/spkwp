@@ -14,7 +14,7 @@ $data = Index("SELECT * FROM alternatif LIMIT $awal,$halaman");
         <div class="row">
             <div class="columns">
                 <div class="column">
-                    <div class="card animate__animated animate__zoomIn">
+                    <div class="card animate_animated animate_zoomIn">
                         <div class="card-header">
                             <p class="card-header-title">Table Alternatif</p>
                             <div class="buttons card-header-icon">
@@ -46,7 +46,7 @@ $data = Index("SELECT * FROM alternatif LIMIT $awal,$halaman");
                                                         <a class="button is-link" href="index.php?halaman=editdatales&id=<?= $row['id_les']; ?>">
                                                             <ion-icon name="create"></ion-icon>
                                                         </a>
-                                                        <button class="button is-danger" onclick="DeleteData()">
+                                                        <button class="button is-danger" onclick="DeleteData(<?= $row['id_les']; ?>)">
                                                             <ion-icon name="trash"></ion-icon>
                                                         </button>
                                                     </div>
@@ -66,26 +66,25 @@ $data = Index("SELECT * FROM alternatif LIMIT $awal,$halaman");
     </div>
 </section>
 <script>
-    function DeleteData() {
-        // event.preventDefault(); // prevent form submit
-        Swal.fire({
-            title: 'Yakin mau hapus data ini?',
-            text: "kalo sudah dihapus, tidak bisa dibalikin ya!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#276CDA',
-            cancelButtonColor: '#F03A5F',
-            confirmButtonText: 'Iya, hapus aja',
-            showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "index.php?halaman=hapusdatales&id=<?= $row['id_les']; ?>";
-            }
-        })
-    }
+   function DeleteData(id) {
+    Swal.fire({
+        title: 'Yakin mau hapus data ini?',
+        text: "kalo sudah dihapus, tidak bisa dibalikin ya!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#276CDA',
+        cancelButtonColor: '#F03A5F',
+        confirmButtonText: 'Iya, hapus aja',
+        showClass: {
+            popup: 'animate_animated animate_fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate_animated animate_fadeOutUp'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `index.php?halaman=hapusdatales&id=${id}`;
+        }
+    });
+}
 </script>

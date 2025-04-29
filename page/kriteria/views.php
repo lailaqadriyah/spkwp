@@ -37,27 +37,27 @@ $data = Index("SELECT * FROM kriteria LIMIT $awal,$halaman");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1 + $awal ?>
+                                        <?php $i = 1 + $awal; ?>
                                         <?php foreach ($data as $row) : ?>
                                             <tr>
                                                 <th><?= $i ?></th>
                                                 <td><?= $row["kriteria_kode"] ?></td>
                                                 <td><?= $row["nm_kriteria"] ?></td>
                                                 <td><?= $row["bobot"] ?></td>
-                                                <th><?= $row["status"] ?></th>
+                                                <td><?= $row["status"] ?></td>
                                                 <td>
                                                     <div class="buttons">
                                                         <a class="button is-link" href="index.php?halaman=editdatakriteria&id=<?= $row['id_kriteria']; ?>">
                                                             <ion-icon name="create"></ion-icon>
                                                         </a>
-                                                        <button class="button is-danger" onclick="DeleteData()">
+                                                        <button class="button is-danger" onclick="DeleteData(<?= $row['id_kriteria']; ?>)">
                                                             <ion-icon name="trash"></ion-icon>
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php $i++ ?>
-                                        <?php endforeach ?>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -69,12 +69,12 @@ $data = Index("SELECT * FROM kriteria LIMIT $awal,$halaman");
         </div>
     </div>
 </section>
+
 <script>
-    function DeleteData() {
-        // event.preventDefault(); // prevent form submit
+    function DeleteData(id) {
         Swal.fire({
             title: 'Yakin mau hapus data ini?',
-            text: "kalo sudah dihapus, tidak bisa dibalikin ya!",
+            text: "Kalau sudah dihapus, tidak bisa dibalikin ya!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#276CDA',
@@ -88,8 +88,8 @@ $data = Index("SELECT * FROM kriteria LIMIT $awal,$halaman");
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "index.php?halaman=hapusdatakriteria&id=<?= $row['id_kriteria']; ?>";
+                window.location.href = `index.php?halaman=hapusdatakriteria&id=${id}`;
             }
-        })
+        });
     }
 </script>

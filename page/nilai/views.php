@@ -14,7 +14,7 @@ $totalS = 0;
         <div class="row">
             <div class="columns">
                 <div class="column">
-                    <div class="card animate__animated animate__zoomIn">
+                    <div class="card animate_animated animate_zoomIn">
                         <div class="card-header">
                             <p class="card-header-title">Table Penilaian</p>
                         </div>
@@ -36,16 +36,32 @@ $totalS = 0;
                                             <tr>
                                                 <th><?= $a++ ?></th>
                                                 <td><?= $row["nm_les"] ?></td>
-                                                <?php foreach ($bobot as $pembobot) : ?>
-                                                    <?php if ($pembobot["id_les"] == $row["id_les"]) : ?>
-                                                        <td><?= $pembobot["nilai"] ?></td>
-                                                    <?php endif ?>
+                                                <?php foreach ($kriteria as $k) : ?>
+                                                    <?php
+                                                    $found = false;
+                                                    foreach ($bobot as $pembobot) {
+                                                        if (
+                                                            $pembobot["id_les"] == $row["id_les"] &&
+                                                            $pembobot["id_kriteria"] == $k["id_kriteria"]
+                                                        ) {
+                                                            echo "<td>" . $pembobot["nilai"] . "</td>";
+                                                            $found = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!$found) {
+                                                        echo "<td>-</td>"; // Kosong jika tidak ada nilai
+                                                    }
+                                                    ?>
                                                 <?php endforeach ?>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
+
+
+                    
                             <hr>
 
                             <!-- BAGIAN -->
@@ -150,55 +166,55 @@ $totalS = 0;
                                         <?php $i++ ?>
                                         <?php $j++ ?>
                                     <?php endforeach ?>
-                          
+
                                 </tbody>
                             </table>
-                                             <hr>
-                        <h4 class="subtitle">Ranking</h4>
-                        <div class="table-container">
-                            <table class="table is-fullwidth">
-                                <thead class="has-background-info">
-                                    <tr>
-                                        <th class="has-text-white">Ranking</th>
-                                        <th class="has-text-white">Alternatif</th>
-                                        <th class="has-text-white">Nilai</th>
-                                    </tr>
-                                </thead>
+                            <hr>
+                            <h4 class="subtitle">Ranking</h4>
+                            <div class="table-container">
+                                <table class="table is-fullwidth">
+                                    <thead class="has-background-info">
+                                        <tr>
+                                            <th class="has-text-white">Ranking</th>
+                                            <th class="has-text-white">Alternatif</th>
+                                            <th class="has-text-white">Nilai</th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-<?php 
-$h = 1;
-$i = 0;
-$j = 0;
-$varV = array(); // Array untuk menyimpan nilai-nilai
+                                    <tbody>
+                                        <?php
+                                        $h = 1;
+                                        $i = 0;
+                                        $j = 0;
+                                        $varV = array(); // Array untuk menyimpan nilai-nilai
 
-// Menyimpan nilai-nilai ke dalam array
-foreach ($alternatif as $row) {
-    $varV[$j] = $test[$i] / $totalS;
-    $i++;
-    $j++;
-}
+                                        // Menyimpan nilai-nilai ke dalam array
+                                        foreach ($alternatif as $row) {
+                                            $varV[$j] = $test[$i] / $totalS;
+                                            $i++;
+                                            $j++;
+                                        }
 
-// Mengurutkan array dari nilai yang paling besar
-arsort($varV);
+                                        // Mengurutkan array dari nilai yang paling besar
+                                        arsort($varV);
 
-$i = 0;
-?>
+                                        $i = 0;
+                                        ?>
 
-<!-- Menampilkan nilai-nilai yang telah diurutkan -->
-<?php foreach ($varV as $key => $value) : ?>
-    <tr>
-        <th><?= ++$i ?></th>
-        <td><?= $alternatif[$key]["nm_les"] ?></td>
-        <td><?= round($value, 3) ?></td>
-    </tr>
-<?php endforeach ?>
+                                        <!-- Menampilkan nilai-nilai yang telah diurutkan -->
+                                        <?php foreach ($varV as $key => $value) : ?>
+                                            <tr>
+                                                <th><?= ++$i ?></th>
+                                                <td><?= $alternatif[$key]["nm_les"] ?></td>
+                                                <td><?= round($value, 3) ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
 
+                            </div>
                         </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>

@@ -26,9 +26,8 @@ if (!isset($_SESSION['login'])) {
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.php?halaman=home">
-                    <!-- <h3 class="title">SPK Metode WP</h3> -->
+                <h3 class="title is-size-4">Pemilihan Kos Sekitar Unand</h3>
                 </a>
-
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="NavbarUtama">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>

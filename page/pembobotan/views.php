@@ -58,20 +58,21 @@ $banding2 = Index("SELECT * FROM kriteria");
                                                 </td>
                                                 <td>
                                                     <?php if ($row["nilai"] > 1000000) : ?>
-                                                        <?= "Rp " . number_format($row["nilai"], 2, ',', '.'); ?></td>
-                                            <?php else : ?>
-                                                <?= $row["nilai"] ?>
-                                            <?php endif ?>
-                                            <td>
-                                                <div class="buttons">
-                                                    <a class="button is-link" href="index.php?halaman=editdatabobot&id=<?= $row['id_nilai']; ?>">
-                                                        <ion-icon name="create"></ion-icon>
-                                                    </a>
-                                                    <button class="button is-danger" onclick="archiveFunction()">
-                                                        <ion-icon name="trash"></ion-icon>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                        <?= "Rp " . number_format($row["nilai"], 2, ',', '.'); ?>
+                                                    <?php else : ?>
+                                                        <?= $row["nilai"] ?>
+                                                    <?php endif ?>
+                                                </td>
+                                                <td>
+                                                    <div class="buttons">
+                                                        <a class="button is-link" href="index.php?halaman=editdatabobot&id=<?= $row['id_nilai']; ?>">
+                                                            <ion-icon name="create"></ion-icon>
+                                                        </a>
+                                                        <button class="button is-danger" onclick="DeleteData(<?= $row['id_nilai']; ?>)">
+                                                            <ion-icon name="trash"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <?php $i++ ?>
                                         <?php endforeach ?>
@@ -86,12 +87,12 @@ $banding2 = Index("SELECT * FROM kriteria");
         </div>
     </div>
 </section>
+
 <script>
-    function archiveFunction() {
-        // event.preventDefault(); // prevent form submit
+    function DeleteData(id) {
         Swal.fire({
             title: 'Yakin mau hapus data ini?',
-            text: "kalo sudah dihapus, tidak bisa dibalikin ya!",
+            text: "Kalau sudah dihapus, tidak bisa dibalikin ya!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#276CDA',
@@ -105,8 +106,8 @@ $banding2 = Index("SELECT * FROM kriteria");
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "index.php?halaman=hapusdatabobot&id=<?= $row['id_nilai']; ?>";
+                window.location.href = `index.php?halaman=hapusdatabobot&id=${id}`;
             }
-        })
+        });
     }
 </script>
