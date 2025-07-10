@@ -9,6 +9,49 @@ $test = [];
 $varV = [];
 $totalS = 0;
 ?>
+    <meta charset="UTF-8">
+    <title>SPK Kos Sekitar Unand</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      html, body {
+            height: 100%;
+            margin: 0;
+            background: #F1E7E7;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .has-background-maroon {
+            background-color: #800000 !important;
+        }
+
+        .button.is-maroon {
+            background-color: #800000;
+            color: #fff;
+            border: none;
+        }
+
+        .button.is-maroon:hover {
+            background-color: #a00000;
+        }
+
+        .pagination-container {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
 <section class="section">
     <div class="container">
         <div class="row">
@@ -20,8 +63,9 @@ $totalS = 0;
                         </div>
                         <div class="card-content">
                             <div class="table-container">
+                                <!-- Tabel awal penilaian -->
                                 <table class="table is-fullwidth">
-                                    <thead class="has-background-info">
+                                    <thead class="has-background-maroon">
                                         <tr>
                                             <th class="has-text-white">No</th>
                                             <th class="has-text-white">Alternatif</th>
@@ -50,7 +94,7 @@ $totalS = 0;
                                                         }
                                                     }
                                                     if (!$found) {
-                                                        echo "<td>-</td>"; // Kosong jika tidak ada nilai
+                                                        echo "<td>-</td>";
                                                     }
                                                     ?>
                                                 <?php endforeach ?>
@@ -60,11 +104,8 @@ $totalS = 0;
                                 </table>
                             </div>
 
-
-                    
                             <hr>
-
-                            <!-- BAGIAN -->
+                            <!-- BAGIAN 1 -->
                             <h4 class="subtitle">Bagian 1 : Mencari Nilai W</h4>
                             <hr>
                             <p>Bobot Tiap Kriteria :</p>
@@ -132,6 +173,8 @@ $totalS = 0;
                             <br>
                         <?php endforeach ?>
                         <hr>
+
+                        <!-- BAGIAN 3 -->
                         <h4 class="subtitle">Bagian 3 : Mencari Nilai V (V)</h4>
                         <?php $f = 1 ?>
                         <?php $g = 0 ?>
@@ -141,6 +184,8 @@ $totalS = 0;
                             <?php $g++ ?>
                         <?php endforeach ?>
                         <hr>
+
+                        <!-- HASIL -->
                         <h4 class="subtitle">Hasil</h4>
                         <div class="table-container">
                             <table class="table is-fullwidth">
@@ -166,55 +211,69 @@ $totalS = 0;
                                         <?php $i++ ?>
                                         <?php $j++ ?>
                                     <?php endforeach ?>
-
                                 </tbody>
                             </table>
                             <hr>
-                            <h4 class="subtitle">Ranking</h4>
-                            <div class="table-container">
-                                <table class="table is-fullwidth">
-                                    <thead class="has-background-info">
-                                        <tr>
-                                            <th class="has-text-white">Ranking</th>
-                                            <th class="has-text-white">Alternatif</th>
-                                            <th class="has-text-white">Nilai</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php
-                                        $h = 1;
-                                        $i = 0;
-                                        $j = 0;
-                                        $varV = array(); // Array untuk menyimpan nilai-nilai
-
-                                        // Menyimpan nilai-nilai ke dalam array
-                                        foreach ($alternatif as $row) {
-                                            $varV[$j] = $test[$i] / $totalS;
-                                            $i++;
-                                            $j++;
-                                        }
-
-                                        // Mengurutkan array dari nilai yang paling besar
-                                        arsort($varV);
-
-                                        $i = 0;
-                                        ?>
-
-                                        <!-- Menampilkan nilai-nilai yang telah diurutkan -->
-                                        <?php foreach ($varV as $key => $value) : ?>
+                            <!-- RANKING -->
+                            <div id="ranking-section">
+                                <h4 class="subtitle">Ranking</h4>
+                                <div class="table-container">
+                                    <table class="table is-fullwidth">
+                                        <thead class="has-background-maroon">
                                             <tr>
-                                                <th><?= ++$i ?></th>
-                                                <td><?= $alternatif[$key]["nm_les"] ?></td>
-                                                <td><?= round($value, 3) ?></td>
+                                                <th class="has-text-white">Ranking</th>
+                                                <th class="has-text-white">Alternatif</th>
+                                                <th class="has-text-white">Nilai</th>
                                             </tr>
-                                        <?php endforeach ?>
-
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $h = 1;
+                                            $i = 0;
+                                            $j = 0;
+                                            $varV = array();
+                                            foreach ($alternatif as $row) {
+                                                $varV[$j] = $test[$i] / $totalS;
+                                                $i++;
+                                                $j++;
+                                            }
+                                            arsort($varV);
+                                            $i = 0;
+                                            ?>
+                                            <?php foreach ($varV as $key => $value) : ?>
+                                                <tr>
+                                                    <th><?= ++$i ?></th>
+                                                    <td><?= $alternatif[$key]["nm_les"] ?></td>
+                                                    <td><?= round($value, 3) ?></td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
+                            <!-- PRINT BUTTON -->
+                            <div class="mt-4">
+                                <button class="button is-maroon" onclick="printRanking()">Print Ranking</button>
+                            </div>
+
+                            <!-- JAVASCRIPT -->
+                            <script>
+                                function printRanking() {
+                                    const printContents = document.getElementById("ranking-section").innerHTML;
+                                    const originalContents = document.body.innerHTML;
+                                    document.body.innerHTML = printContents;
+                                    window.print();
+                                    document.body.innerHTML = originalContents;
+                                }
+                            </script>
+
                         </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 </section>
+</body>
+</html>

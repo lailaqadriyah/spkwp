@@ -54,7 +54,7 @@ function Delete($table, $tableid, $id)
 
     // Prepare the SQL statement
     $stmt = mysqli_prepare($koneksi, "DELETE FROM $table WHERE $tableid = ?");
-    
+
     // Bind the parameter
     mysqli_stmt_bind_param($stmt, 'i', $id); // Assuming $id is an integer
 
@@ -70,10 +70,9 @@ function Delete($table, $tableid, $id)
 
     // Close the statement
     mysqli_stmt_close($stmt);
-    
+
     // Close the connection
     mysqli_close($koneksi);
 
     return $result;
 }
-?>

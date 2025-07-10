@@ -1,13 +1,14 @@
 <?php
 require("controller/Login.php");
-
 session_start();
 
+// Jika sudah login, redirect ke halaman utama
 if (isset($_SESSION['login'])) {
     header("Location: page/index.php");
     exit;
 }
 
+// Proses login jika tombol ditekan
 if (isset($_POST['login'])) {
     $login = Login($_POST);
 }
@@ -24,30 +25,57 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="asset/css/animate.min.css">
     <link rel="stylesheet" href="asset/css/costume.css">
     <style>
-        html,
-        body {
+        html, body {
             height: 100%;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background-image: url('asset/img/alo.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background: linear-gradient(-45deg,rgb(176, 34, 79),rgb(185, 156, 163),rgb(199, 155, 164),rgb(203, 40, 92));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .card {
-            background: rgba(255, 255, 255, 0.8);
-            /* Transparansi opsional */
+            background: rgba(255, 255, 255, 0.9);
             width: 100%;
             max-width: 1000px;
-            /* Lebar maksimum yang lebih besar */
             margin: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background: #6A142F;
+        }
+
+        .card-header-title {
+            color: #FFFFFF;
+        }
+
+        .button.is-maroon {
+            background-color: #6A142F;
+            color: #fff;
+            border: none;
+        }
+
+        .button.is-maroon:hover {
+            background-color: #8A1F3F;
+        }
+
+        .field label.label {
+            color: #6A142F;
+            font-weight: bold;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -57,30 +85,31 @@ if (isset($_POST['login'])) {
     <section class="section" id="section">
         <div class="container">
             <div class="columns is-centered">
-                <div class="column is-8"> <!-- Lebar kolom ditingkatkan -->
+                <div class="column is-8">
                     <div class="card">
                         <div class="card-header">
-                            <p class="card-header-title">SPK PEMILIHAN KOS-KOSAN METODE WEIGHTD PRODUCT (WP) </p>
+                            <p class="card-header-title">SPK PEMILIHAN KOS-KOSAN METODE WEIGHTED PRODUCT (WP)</p>
                         </div>
                         <div class="card-content">
+
                             <?php if (isset($login['error'])) : ?>
-                                <p>
-                                    <?= "<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Gagal',
-        text: 'Gagal login, periksa kembali username dan password anda!',
-        showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-        }
-    }).then(function() {
-        window.location.href = 'index.php';
-    });
-    </script>"; ?></p>
+                                <script>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal',
+                                        text: 'Gagal login, periksa kembali username dan password anda!',
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    }).then(function() {
+                                        window.location.href = 'index.php';
+                                    });
+                                </script>
                             <?php endif ?>
+
                             <form action="" method="post">
                                 <div class="field">
                                     <label class="label">Username</label>
@@ -91,6 +120,7 @@ if (isset($_POST['login'])) {
                                         </span>
                                     </div>
                                 </div>
+
                                 <div class="field">
                                     <label class="label">Password</label>
                                     <div class="control has-icons-left">
@@ -100,15 +130,15 @@ if (isset($_POST['login'])) {
                                         </span>
                                     </div>
                                 </div>
-                                <div class="buttons">
-                                    <button class="button is-link" type="submit" name="login">
+
+                                <div class="buttons card-header-icon">
+                                    <button class="button is-maroon" type="submit" name="login">
                                         <ion-icon name="log-in" class="mr-2"></ion-icon>Login
                                     </button>
                                 </div>
                             </form>
 
                         </div>
-
                     </div>
                 </div>
             </div>

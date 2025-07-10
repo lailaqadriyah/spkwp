@@ -17,17 +17,30 @@ if (!isset($_SESSION['login'])) {
     <title>SPK</title>
     <link rel="stylesheet" href="../asset/css/bulma.min.css">
     <link rel="stylesheet" href="../asset/css/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <style>
+        html,
+        container,
+        body {
+            height: 100%;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(to bottom right, #E3F2FD, #FFFFFF);
+        }
+    </style>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation" style="background-color: #D4EBF8;">
-        <div class="container">
+    <nav class="navbar has-shadow " role="navigation" aria-label="main navigation" style="background-color: #6A142F;">
+        <div class="container" style="background-color: #6A142F">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.php?halaman=home">
-                <h3 class="title is-size-4">Pemilihan Kos Sekitar Unand</h3>
+                    <img src="../asset/img/logo.png" alt="Logo" style="height: 36px; margin-right: 10px;">
+                    <h3 class="title is-size-4" style=" color: white;">Pemilihan Kos Sekitar Unand</h3>
                 </a>
+
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="NavbarUtama">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -37,12 +50,12 @@ if (!isset($_SESSION['login'])) {
 
             <div id="NavbarUtama" class="navbar-menu">
                 <div class="navbar-end">
-                    <a class="navbar-item" href="index.php?halaman=home">Home</a>
-                    <a class="navbar-item" href="index.php?halaman=datales">Alternatif</a>
-                    <a class="navbar-item" href="index.php?halaman=datakriteria">Kriteria</a>
-                    <a class="navbar-item" href="index.php?halaman=databobot">Pembobotan</a>
-                    <a class="navbar-item" href="index.php?halaman=datapenilaian">Perhitungan</a>
-                    <a class="navbar-item" href="index.php?halaman=aboutus">About Us</a>
+                    <a class="navbar-item" href="index.php?halaman=home" style="color: white;">Home</a>
+                    <a class="navbar-item" href="index.php?halaman=datales" style="color: white;">Alternatif</a>
+                    <a class="navbar-item" href="index.php?halaman=datakriteria" style="color: white;">Kriteria</a>
+                    <a class="navbar-item" href="index.php?halaman=databobot" style="color: white;">Pembobotan</a>
+                    <a class="navbar-item" href="index.php?halaman=datapenilaian" style="color: white;">Perhitungan</a>
+                    <a class="navbar-item" href="index.php?halaman=aboutus" style="color: white;">About Us</a>
 
                     <div class="navbar-item">
                         <div class="buttons">
@@ -69,12 +82,22 @@ if (!isset($_SESSION['login'])) {
 
     <script>
         function confirmLogout(event) {
-            event.preventDefault(); // Biar tidak langsung redirect
-            var yakin = confirm("Apakah Anda yakin ingin keluar?");
-            if (yakin) {
-                window.location.href = "../logout.php"; // Logout kalau yakin
-            }
-            // Kalau batal, tetap di halaman
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan keluar dari sistem.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../logout.php";
+                }
+            });
         }
     </script>
 </body>
