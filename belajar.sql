@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Apr 2025 pada 16.22
+-- Waktu pembuatan: 28 Bulan Mei 2025 pada 10.13
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -196,7 +196,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id_les` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_les` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `kriteria`
@@ -208,7 +208,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT untuk tabel `pembobotan`
 --
 ALTER TABLE `pembobotan`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
